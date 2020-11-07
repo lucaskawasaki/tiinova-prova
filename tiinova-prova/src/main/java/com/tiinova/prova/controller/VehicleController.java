@@ -58,4 +58,9 @@ public class VehicleController {
 	public List<Vehicle> listByBrand(@PathVariable long id) {
 		return vehicleService.findByBrand(id);
 	}
+	
+	@GetMapping("/search/byDecade/{year}")
+	public List<Vehicle> listByBrand(@PathVariable Integer year) {
+		return vehicleService.findByDecade(year);
+	}
 }

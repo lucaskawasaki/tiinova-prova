@@ -3,6 +3,7 @@ package com.tiinova.prova.service;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,25 @@ public class VehicleService {
 	public List<Vehicle> findByBrand(long id){
 		Brand brand = brandService.findById(id);
 		return vehicleRepository.findByBrand(brand);
+	}
+	
+	public List<Vehicle> findByDecade(int yearParam){
+		List<Vehicle> vehicles = vehicleRepository.findAll();
+		
+		return vehicles.stream()
+				.filter(v -> isSameDecade(v.getYear(), yearParam))
+				.collect(Collectors.toList());		
+		
+	}
+	
+	private boolean isSameDecade(int year, int yearParam) {
+		int decadeParam = yearParam/10;
+		int decade = year/10;
+		
+		if(decadeParam == decade) {
+			return true;
+		}
+		
+		return false;
 	}
 }
