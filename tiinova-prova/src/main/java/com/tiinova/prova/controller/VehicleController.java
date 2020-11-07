@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,5 +47,15 @@ public class VehicleController {
 	public ResponseEntity<Vehicle> update(@PathVariable long id, @Valid @RequestBody Vehicle vehicle){
 				
 		return ResponseEntity.ok(vehicleService.update(id, vehicle));
+	}
+	
+	@GetMapping("/search/unsold")
+	public List<Vehicle> toListUnsold() {
+		return vehicleService.findVehiclesNotSold();
+	}
+	
+	@GetMapping("/search/brand/{id}")
+	public List<Vehicle> listByBrand(@PathVariable long id) {
+		return vehicleService.findByBrand(id);
 	}
 }

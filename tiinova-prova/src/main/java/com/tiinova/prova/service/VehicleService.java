@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.tiinova.prova.domain.Brand;
 import com.tiinova.prova.domain.Vehicle;
 import com.tiinova.prova.repository.VehicleRepository;
 
@@ -16,7 +17,10 @@ import com.tiinova.prova.repository.VehicleRepository;
 public class VehicleService {
 	
 	@Autowired
-	private VehicleRepository vehicleRepository;
+	private VehicleRepository vehicleRepository;	
+
+	@Autowired
+	private BrandService brandService;
 
 	public List<Vehicle> findAll() {
 		return vehicleRepository.findAll();
@@ -47,5 +51,14 @@ public class VehicleService {
 		BeanUtils.copyProperties(vehicle, changedVehicle, "id");
 		
 		return vehicleRepository.save(changedVehicle);
+	}
+	
+	public List<Vehicle> findVehiclesNotSold() {
+		return vehicleRepository.findVehiclesNotSold();
+	}
+	
+	public List<Vehicle> findByBrand(long id){
+		Brand brand = brandService.findById(id);
+		return vehicleRepository.findByBrand(brand);
 	}
 }
