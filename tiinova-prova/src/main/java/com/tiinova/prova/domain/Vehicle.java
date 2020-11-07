@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,6 +22,10 @@ public class Vehicle {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "BRAND_ID")
+	private Brand brand;
 	
 	private String name;
 	private int year;
@@ -69,7 +75,12 @@ public class Vehicle {
 		this.updated = updated;
 	}
 	
+	public Brand getBrand() {
+		return brand;
+	}
 	
-	
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}	
 
 }

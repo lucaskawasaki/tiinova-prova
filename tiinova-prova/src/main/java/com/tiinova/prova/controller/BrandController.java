@@ -16,35 +16,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tiinova.prova.domain.Vehicle;
-import com.tiinova.prova.service.VehicleService;
+import com.tiinova.prova.domain.Brand;
+import com.tiinova.prova.service.BrandService;
 
 @RestController
-@RequestMapping("/veiculos")
-public class VehicleController {
+@RequestMapping("/marcas")
+public class BrandController {
 	
 	@Autowired
-	private VehicleService vehicleService;
+	private BrandService brandService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Vehicle> toList() {
-		return vehicleService.findAll();
+	public List<Brand> toList() {
+		return brandService.findAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public void salvar(@RequestBody Vehicle vehicle) {
-		vehicleService.save(vehicle);
+	public void salvar(@RequestBody Brand brand) {
+		brandService.save(brand);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteById(@PathVariable Long id) {
-		vehicleService.deleteById(id);
+		brandService.deleteById(id);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Vehicle> update(@PathVariable long id, @Valid @RequestBody Vehicle vehicle){
+	public ResponseEntity<Brand> update(@PathVariable long id, @Valid @RequestBody Brand brand){
 				
-		return ResponseEntity.ok(vehicleService.update(id, vehicle));
+		return ResponseEntity.ok(brandService.update(id, brand));
 	}
 }

@@ -1,5 +1,6 @@
 package com.tiinova.prova.service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,8 @@ public class VehicleService {
 	}
 
 	public Vehicle update(long id, Vehicle vehicle) {
+		vehicle.setUpdated(Calendar.getInstance().getTime());
+		
 		Vehicle changedVehicle = findById(id);		
 		BeanUtils.copyProperties(vehicle, changedVehicle, "id");
 		
